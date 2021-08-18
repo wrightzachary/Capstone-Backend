@@ -1,3 +1,0 @@
-@Imports Capstone_Backend__devCodeCamp.Areas.HelpPage.ModelDescriptions
-@ModelType SimpleTypeModelDescription
-@Model.Documentation
