@@ -13,7 +13,7 @@ namespace Capstone_Backend.Data
         }
 
         // Create DbSets here for adding new tables to the database
-        public DbSet<Group> Groups { get; set; }
+        public DbSet<Group> Groups { get; set; }  
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<SocialUser> SocialUsers { get; set; }
