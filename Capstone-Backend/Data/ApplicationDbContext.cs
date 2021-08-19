@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Capstone_Backend.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
@@ -16,6 +16,8 @@ namespace Capstone_Backend.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<SocialUser> SocialUsers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

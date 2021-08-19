@@ -16,7 +16,6 @@ using System.Threading.Tasks;
 
 namespace Capstone_Backend
 {
-   {
     public class Startup
     {
         public Startup(IConfiguration configuration)
