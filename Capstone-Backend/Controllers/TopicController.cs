@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Capstone_Backend.Data;
+using Capstone_Backend.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,81 +9,69 @@ using System.Threading.Tasks;
 
 namespace Capstone_Backend.Controllers
 {
-    public class TopicController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TopicController : ControllerBase
     {
-        // GET: TopicController
-        public ActionResult Index()
+
+        private ApplicationDbContext _context;
+        public TopicController(ApplicationDbContext context)
         {
-            return View();
+            _context = context;
         }
 
-        // GET: TopicController/Details/5
-        public ActionResult Details(int id)
+        // GET: api/<TopicController>
+        // GET ALL TOPICS
+        [HttpGet]
+        public IActionResult Get()
         {
-            return View();
+            var topics = _context.Topics;
+            return Ok(topics);
         }
 
-        // GET: TopicController/Create
-        public ActionResult Create()
+        // GET api/<TopicController>/{id}
+        // GET TOPIC BY ID
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
         {
-            return View();
+            var topic = _context.Topics.FirstOrDefault(topic => topic.TopicId == id); 
+            if (topic == null)
+            {
+                return NotFound();
+            }
+            return Ok(topic);
         }
 
-        // POST: TopicController/Create
+        // POST api/<TopicController>
+        // CREATE A TOPIC
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Post([FromBody] Topic value)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _context.Topics.Add(value);
+            _context.SaveChanges();
+            return StatusCode(201, value);
         }
 
-        // GET: TopicController/Edit/5
-        public ActionResult Edit(int id)
+        // PUT api/<TopicController>/{id}
+        // PUT TOPIC
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, [FromBody] Topic value)
         {
-            return View();
+            var topic = _context.Topics.FirstOrDefault(topic => topic.TopicId == id);
+            topic.TopicName = value.TopicName;
+            _context.SaveChanges();
+            return Ok(topic);
         }
 
-        // POST: TopicController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        // DELETE api/<TopicController>/{id}
+        // DELETE TOPIC BY ID
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: TopicController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: TopicController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var topic = _context.Topics.FirstOrDefault(topic => topic.TopicId == id);
+            _context.Remove(topic);
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }

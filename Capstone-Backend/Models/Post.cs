@@ -15,6 +15,7 @@ namespace Capstone_Backend.Models
         [ForeignKey("Topic")]
         public int TopicId { get; set; }
         public Topic Topic { get; set; }
-        public int DateCreated { get; set; }
+        public string PostName { get; set; }
+        public int DateCreated { get; set; } 
     }
 }
