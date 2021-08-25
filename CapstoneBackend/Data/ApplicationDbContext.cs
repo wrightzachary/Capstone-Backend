@@ -1,4 +1,5 @@
-﻿using CapstoneBackend.Models;
+﻿using CapstoneBackend.Configuration;
+using CapstoneBackend.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,7 +23,7 @@ namespace CapstoneBackend.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //    modelBuilder.ApplyConfiguration(new RolesConfiguration());
+            modelBuilder.ApplyConfiguration(new RolesConfiguration());
         }
 
     }
