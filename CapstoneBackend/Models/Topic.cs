@@ -6,16 +6,13 @@ using System.Threading.Tasks;
 
 namespace CapstoneBackend.Models 
 {
-    public class Post
+    public class Topic
     {
-        public int PostId { get; set; }
+        public int TopicId { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
         public User User { get; set; }
-        [ForeignKey("Topic")]
-        public int TopicId { get; set; }
-        public string Topic { get; set; }
-        public string PostName { get; set; }
-        public int DateCreated { get; set; }
+        public int DateModified { get; set; }
+        public int TopicName { get; set; }
     }
 }
