@@ -16,7 +16,6 @@ namespace CapstoneBackend.Data
         public DbSet<Group> Groups { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Post> Posts { get; set; }
-        public DbSet<SocialUser> SocialUsers { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

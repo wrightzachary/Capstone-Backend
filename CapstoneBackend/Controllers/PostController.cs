@@ -14,7 +14,7 @@ namespace CapstoneBackend.Controllers
     public class PostController : ControllerBase
     {
 
-        private ApplicationDbContext _context;
+        private ApplicationDbContext _context; 
         public PostController(ApplicationDbContext context)
         {
             _context = context;
