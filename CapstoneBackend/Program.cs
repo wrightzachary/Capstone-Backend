@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Capstone_Backend
+namespace CapstoneBackend
 {
     public class Program
     {
@@ -24,3 +24,4 @@ namespace Capstone_Backend
                 });
     }
 }
+ 
