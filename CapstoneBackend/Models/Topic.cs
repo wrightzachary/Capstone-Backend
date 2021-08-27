@@ -13,6 +13,6 @@ namespace CapstoneBackend.Models
         public string UserId { get; set; }
         public User User { get; set; }
         public int DateModified { get; set; }
-        public int TopicName { get; set; }
+        public string TopicName { get; set; }
     }
 }

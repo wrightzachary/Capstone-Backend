@@ -4,14 +4,16 @@ using CapstoneBackend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CapstoneBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210825230533_topicControllerFixed")]
+    partial class topicControllerFixed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,8 +51,14 @@ namespace CapstoneBackend.Migrations
                     b.Property<int>("DateCreated")
                         .HasColumnType("int");
 
-                    b.Property<string>("PostContext")
+                    b.Property<string>("PostName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Topic")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TopicId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -114,15 +122,15 @@ namespace CapstoneBackend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c1d5ab57-21df-4c34-bc3c-a68c308b8732",
-                            ConcurrencyStamp = "f49260a1-0169-4f33-b817-bee339ed6691",
+                            Id = "cb198760-97ee-41cb-84d1-6dcb06db8265",
+                            ConcurrencyStamp = "b966bed0-3649-4101-8a3b-327ab6c8e71b",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "de55f5a1-0ab6-49b0-ba8a-7fd236779d62",
-                            ConcurrencyStamp = "217d23d8-859f-43c5-8e73-ce9797ea8f8e",
+                            Id = "b9e80651-d395-404b-825c-f23d841f146a",
+                            ConcurrencyStamp = "2533687c-1f46-48b9-b3f5-7febd7d498c6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -307,22 +315,10 @@ namespace CapstoneBackend.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("BranchServed")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CurrentLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DutyStation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");

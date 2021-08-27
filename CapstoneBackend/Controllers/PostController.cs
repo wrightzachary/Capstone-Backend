@@ -58,7 +58,7 @@ namespace CapstoneBackend.Controllers
         public IActionResult Put(int id, [FromBody] Post value)
         {
             var post = _context.Posts.FirstOrDefault(post => post.PostId == id);
-            post.PostName = value.PostName;
+            post.PostContext = value.PostContext;
             _context.SaveChanges();
             return Ok(post);
         }
