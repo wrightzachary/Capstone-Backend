@@ -11,11 +11,9 @@ namespace CapstoneBackend.Models
         public int PostId { get; set; }
         [ForeignKey("User")]
         public string UserId { get; set; }
-        public User User { get; set; }
-        //[ForeignKey("Topic")]
-        //public int TopicId { get; set; }
-        //public string Topic { get; set; }
+        public User User { get; set; } 
         public string PostContext { get; set; } 
         public int DateCreated { get; set; }
+        public int Likes { get; set; }  
     }
 }

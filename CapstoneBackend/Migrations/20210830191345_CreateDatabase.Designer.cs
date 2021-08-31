@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CapstoneBackend.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210825230533_topicControllerFixed")]
-    partial class topicControllerFixed
+    [Migration("20210830191345_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,31 @@ namespace CapstoneBackend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CapstoneBackend.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CommentContext")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("CapstoneBackend.Models.Group", b =>
                 {
@@ -51,14 +76,11 @@ namespace CapstoneBackend.Migrations
                     b.Property<int>("DateCreated")
                         .HasColumnType("int");
 
-                    b.Property<string>("PostName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Topic")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TopicId")
+                    b.Property<int>("Likes")
                         .HasColumnType("int");
+
+                    b.Property<string>("PostContext")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -122,15 +144,15 @@ namespace CapstoneBackend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cb198760-97ee-41cb-84d1-6dcb06db8265",
-                            ConcurrencyStamp = "b966bed0-3649-4101-8a3b-327ab6c8e71b",
+                            Id = "f9ae200d-0688-4e5a-8443-b4e86420c8ab",
+                            ConcurrencyStamp = "603ecc74-128f-4553-a856-afced7cc6e48",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "b9e80651-d395-404b-825c-f23d841f146a",
-                            ConcurrencyStamp = "2533687c-1f46-48b9-b3f5-7febd7d498c6",
+                            Id = "92b59c79-0f54-486b-af03-4cce8e94f323",
+                            ConcurrencyStamp = "8df9c540-6f03-410c-9a23-791f128fd188",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -315,13 +337,42 @@ namespace CapstoneBackend.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("BranchServed")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DutyStation")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("CapstoneBackend.Models.Comment", b =>
+                {
+                    b.HasOne("CapstoneBackend.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CapstoneBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CapstoneBackend.Models.Group", b =>

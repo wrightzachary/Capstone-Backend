@@ -19,6 +19,31 @@ namespace CapstoneBackend.Migrations
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("CapstoneBackend.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CommentContext")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("CapstoneBackend.Models.Group", b =>
                 {
                     b.Property<int>("GroupId")
@@ -47,6 +72,9 @@ namespace CapstoneBackend.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("DateCreated")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Likes")
                         .HasColumnType("int");
 
                     b.Property<string>("PostContext")
@@ -114,15 +142,15 @@ namespace CapstoneBackend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c1d5ab57-21df-4c34-bc3c-a68c308b8732",
-                            ConcurrencyStamp = "f49260a1-0169-4f33-b817-bee339ed6691",
+                            Id = "f9ae200d-0688-4e5a-8443-b4e86420c8ab",
+                            ConcurrencyStamp = "603ecc74-128f-4553-a856-afced7cc6e48",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "de55f5a1-0ab6-49b0-ba8a-7fd236779d62",
-                            ConcurrencyStamp = "217d23d8-859f-43c5-8e73-ce9797ea8f8e",
+                            Id = "92b59c79-0f54-486b-af03-4cce8e94f323",
+                            ConcurrencyStamp = "8df9c540-6f03-410c-9a23-791f128fd188",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -326,6 +354,23 @@ namespace CapstoneBackend.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("User");
+                });
+
+            modelBuilder.Entity("CapstoneBackend.Models.Comment", b =>
+                {
+                    b.HasOne("CapstoneBackend.Models.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CapstoneBackend.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CapstoneBackend.Models.Group", b =>

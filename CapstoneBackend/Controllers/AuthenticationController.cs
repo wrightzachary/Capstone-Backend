@@ -33,7 +33,7 @@ namespace CapstoneBackend.Controllers
             var result = await _userManager.CreateAsync(user, userForRegistration.Password);
             if (!result.Succeeded)
             {
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.TryAddModelError(error.Code, error.Description);
                 }
@@ -47,7 +47,7 @@ namespace CapstoneBackend.Controllers
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> Authenticate([FromBody] UserForAuthenticationDto user)
         {
-            if(!await _authManager.ValidateUser(user))
+            if (!await _authManager.ValidateUser(user))
             {
                 return Unauthorized();
             }
