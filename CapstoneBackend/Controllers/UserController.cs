@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 using System.Globalization;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace CapstoneBackend.Controllers
 {
@@ -24,7 +26,7 @@ namespace CapstoneBackend.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var users = _context.Users.ToList();
+            var users = _context.UsersExtended;
             if (users == null)
             {
                 return NotFound();
